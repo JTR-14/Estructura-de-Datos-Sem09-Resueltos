@@ -48,4 +48,13 @@ public class Cola<T> {
         }
         ultimo = null;
     }
+    public int contar(){
+        int contador = 0;
+        Nodo<T> p =primero;
+        while (p !=null){
+            contador++;
+            p = p.getSgte();
+        }
+        return contador;
+    }
 }
