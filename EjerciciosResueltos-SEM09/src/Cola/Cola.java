@@ -4,6 +4,8 @@
  */
 package Cola;
 
+import javax.swing.DefaultListModel;
+
 public class Cola<T> {
 
     private Nodo<T> primero;
@@ -56,5 +58,13 @@ public class Cola<T> {
             p = p.getSgte();
         }
         return contador;
+    }
+    public void mostrar(DefaultListModel modelo){
+       modelo.removeAllElements();
+       Nodo<T> p = primero;
+       while(p!=null){
+           modelo.addElement(p.getInfo());
+           p = p.getSgte();
+       }
     }
 }
