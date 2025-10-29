@@ -9,12 +9,22 @@ package Ejercicio01;
  * @author Sistemas
  */
 public class Cliente {
+    private int nTicket;
     private String nombre;
     private String tipoTramite;
 
-    public Cliente(String nombre, String tipoTramite) {
+    public Cliente(int nTicket, String nombre, String tipoTramite) {
+        this.nTicket = nTicket;
         this.nombre = nombre;
         this.tipoTramite = tipoTramite;
+    }
+
+    public int getnTicket() {
+        return nTicket;
+    }
+
+    public void setnTicket(int nTicket) {
+        this.nTicket = nTicket;
     }
 
     public String getNombre() {

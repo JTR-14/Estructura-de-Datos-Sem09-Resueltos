@@ -43,28 +43,32 @@ public class Cola<T> {
     public T cima() {
         return primero.getInfo();
     }
-
+    public Nodo<T> cimaNodo(){
+        return primero;
+    }
     public void eliminarTodos() {
         while (primero != null) {
             primero = primero.getSgte();
         }
         ultimo = null;
     }
-    public int contar(){
+
+    public int contar() {
         int contador = 0;
-        Nodo<T> p =primero;
-        while (p !=null){
+        Nodo<T> p = primero;
+        while (p != null) {
             contador++;
             p = p.getSgte();
         }
         return contador;
     }
-    public void mostrar(DefaultListModel modelo){
-       modelo.removeAllElements();
-       Nodo<T> p = primero;
-       while(p!=null){
-           modelo.addElement(p.getInfo());
-           p = p.getSgte();
-       }
+
+    public void mostrar(DefaultListModel modelo) {
+        modelo.removeAllElements();
+        Nodo<T> p = primero;
+        while (p != null) {
+            modelo.addElement(p.getInfo());
+            p = p.getSgte();
+        }
     }
 }

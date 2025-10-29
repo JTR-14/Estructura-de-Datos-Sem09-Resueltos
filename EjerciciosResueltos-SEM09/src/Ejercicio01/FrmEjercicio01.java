@@ -4,17 +4,22 @@
  */
 package Ejercicio01;
 
+
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class FrmEjercicio01 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmEjercicio01
-     */
+    DefaultTableModel modelo = new DefaultTableModel();
+    ColaBanco cola = new ColaBanco();
+    int nTicket = 1;
     public FrmEjercicio01() {
         initComponents();
+        tblColaBanco.setModel(modelo);
     }
 
     /**
@@ -33,7 +38,7 @@ public class FrmEjercicio01 extends javax.swing.JFrame {
         btnDesencolar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbColaBanco = new javax.swing.JTable();
+        tblColaBanco = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,12 +72,27 @@ public class FrmEjercicio01 extends javax.swing.JFrame {
         );
 
         btnEncolar.setText("ENCOLAR");
+        btnEncolar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEncolarActionPerformed(evt);
+            }
+        });
 
         btnDesencolar.setText("DESENCOLAR");
+        btnDesencolar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesencolarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
-        tbColaBanco.setModel(new javax.swing.table.DefaultTableModel(
+        tblColaBanco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -83,7 +103,7 @@ public class FrmEjercicio01 extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tbColaBanco);
+        jScrollPane1.setViewportView(tblColaBanco);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -126,6 +146,42 @@ public class FrmEjercicio01 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnEncolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncolarActionPerformed
+        if(txtNombre.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null,"Ingrese Nombre de cliente","ADVERTENCIA",3);
+            return;
+        }
+        if(cmbTramite.getSelectedIndex() == 0){
+            JOptionPane.showMessageDialog(null,"Seleccione tipo de Tramite","ADVERTENCIA",3);
+            return;
+        }
+        String nombre = txtNombre.getText().trim();
+        String tipo = cmbTramite.getSelectedItem().toString();
+        Cliente cliente = new Cliente(nTicket,nombre, tipo);
+        cola.encolarCliente(cliente);
+        nTicket++;
+        cola.mostrarTabla(modelo);
+        limpiar();
+    }//GEN-LAST:event_btnEncolarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnDesencolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencolarActionPerformed
+        if(cola.esVacio())
+            JOptionPane.showMessageDialog(null,"Lista de Clientes esta vacia","ADVERTENCIA",3);
+        else{
+            Cliente eliminado = cola.desencolarCliente();
+            JOptionPane.showMessageDialog(null,"Se elimino el Cliente\n\tNombre: "+eliminado.getNombre()+"\n\tTipo de Tramite: "+eliminado.getTipoTramite(),"INFORMACION",0);
+            cola.mostrarTabla(modelo);
+        }
+    }//GEN-LAST:event_btnDesencolarActionPerformed
+    private void limpiar(){
+        txtNombre.setText("");
+        cmbTramite.setSelectedIndex(0);
+        txtNombre.requestFocus();
+    }
     /**
      * @param args the command line arguments
      */
@@ -138,7 +194,7 @@ public class FrmEjercicio01 extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbTramite;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbColaBanco;
+    private javax.swing.JTable tblColaBanco;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
 }
