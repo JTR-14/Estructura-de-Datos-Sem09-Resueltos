@@ -4,17 +4,20 @@
  */
 package Ejercicio02;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class FrmEjercicio02 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmEjercicio02
-     */
+    DefaultTableModel modelo = new DefaultTableModel();
+    ColaImpresora cola = new ColaImpresora();
     public FrmEjercicio02() {
         initComponents();
+        tblColaImpresion.setModel(modelo);
     }
 
     /**
@@ -38,8 +41,18 @@ public class FrmEjercicio02 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnDesencolar.setText("DESENCOLAR");
+        btnDesencolar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesencolarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
         tblColaImpresion.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -83,6 +96,11 @@ public class FrmEjercicio02 extends javax.swing.JFrame {
         );
 
         btnEncolar.setText("ENCOLAR");
+        btnEncolar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEncolarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,9 +111,7 @@ public class FrmEjercicio02 extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(55, 55, 55)
@@ -125,10 +141,42 @@ public class FrmEjercicio02 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-   
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnEncolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncolarActionPerformed
+        if(txtArchivo.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Ingrese nombre del Archivo","ADVERTENCIA",2);
+            return;
+        }
+        if(txtNumeroP.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Ingrese Numero de Paginas","ADVERTENCIA",2);
+            return;
+        }
+        String archivo = txtArchivo.getText().trim();
+        int numeroPaginas = Integer.parseInt(txtNumeroP.getText().trim());
+        TrabajoImpresion impresion = new TrabajoImpresion(archivo, numeroPaginas);
+        cola.encolarImpresion(impresion);
+        cola.mostrarTabla(modelo);
+        limpiar();
+    }//GEN-LAST:event_btnEncolarActionPerformed
+
+    private void btnDesencolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencolarActionPerformed
+        if(cola.esVacio())
+            JOptionPane.showMessageDialog(null, "La cola de Impresion esta vacia","ADVERTENCIA",3);
+        else{
+            TrabajoImpresion impresion = cola.desencolarImpresion();
+            JOptionPane.showMessageDialog(null, "El archivo "+impresion.getNombreArchivo() + " se elimino","INFORMACION",1);
+            cola.mostrarTabla(modelo);
+        }
+    }//GEN-LAST:event_btnDesencolarActionPerformed
+
+    public void limpiar(){
+        txtArchivo.setText("");
+        txtNumeroP.setText("");
+        txtArchivo.requestFocus();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesencolar;

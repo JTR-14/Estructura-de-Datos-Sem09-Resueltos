@@ -148,11 +148,11 @@ public class FrmEjercicio01 extends javax.swing.JFrame {
 
     private void btnEncolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncolarActionPerformed
         if(txtNombre.getText().trim().isEmpty()){
-            JOptionPane.showMessageDialog(null,"Ingrese Nombre de cliente","ADVERTENCIA",3);
+            JOptionPane.showMessageDialog(null,"Ingrese Nombre de cliente","ADVERTENCIA",2);
             return;
         }
         if(cmbTramite.getSelectedIndex() == 0){
-            JOptionPane.showMessageDialog(null,"Seleccione tipo de Tramite","ADVERTENCIA",3);
+            JOptionPane.showMessageDialog(null,"Seleccione tipo de Tramite","ADVERTENCIA",2);
             return;
         }
         String nombre = txtNombre.getText().trim();
@@ -170,10 +170,10 @@ public class FrmEjercicio01 extends javax.swing.JFrame {
 
     private void btnDesencolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencolarActionPerformed
         if(cola.esVacio())
-            JOptionPane.showMessageDialog(null,"Lista de Clientes esta vacia","ADVERTENCIA",3);
+            JOptionPane.showMessageDialog(null,"Lista de Clientes esta vacia","ADVERTENCIA",2);
         else{
             Cliente eliminado = cola.desencolarCliente();
-            JOptionPane.showMessageDialog(null,"Se elimino el Cliente\n\tNombre: "+eliminado.getNombre()+"\n\tTipo de Tramite: "+eliminado.getTipoTramite(),"INFORMACION",0);
+            JOptionPane.showMessageDialog(null,"Se elimino el Cliente\n\tNombre: "+eliminado.getNombre()+"\n\tTipo de Tramite: "+eliminado.getTipoTramite(),"INFORMACION",1);
             cola.mostrarTabla(modelo);
         }
     }//GEN-LAST:event_btnDesencolarActionPerformed

@@ -6,28 +6,28 @@ package Ejercicio02;
 
 
 public class TrabajoImpresion {
-    private String nombre;
-    private int numero;
+    private String nombreArchivo;
+    private int nPaginas;
 
     public TrabajoImpresion(String nombre, int numero) {
-        this.nombre = nombre;
-        this.numero = numero;
+        this.nombreArchivo = nombre;
+        this.nPaginas = numero;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNombreArchivo() {
+        return nombreArchivo;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setNombreArchivo(String nombreArchivo) {
+        this.nombreArchivo = nombreArchivo;
     }
 
     public int getNumero() {
-        return numero;
+        return nPaginas;
     }
 
     public void setNumero(int numero) {
-        this.numero = numero;
+        this.nPaginas = numero;
     }
     
 }
