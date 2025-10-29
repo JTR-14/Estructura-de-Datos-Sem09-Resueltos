@@ -4,17 +4,21 @@
  */
 package Ejercicio04;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class FrmEjercicio04 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmEjercicio04
-     */
+    ColaLlamada cola = new ColaLlamada();
+    DefaultTableModel modelo = new DefaultTableModel();
+    int llamadasEspera = 0;
     public FrmEjercicio04() {
         initComponents();
+        tblLlamadasTelefonicas.setModel(modelo);
     }
 
     /**
@@ -30,7 +34,7 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
         btnDesencolar = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbLlamadasTelefonicas = new javax.swing.JTable();
+        tblLlamadasTelefonicas = new javax.swing.JTable();
         jPanel1 = new javax.swing.JPanel();
         txtNumero = new javax.swing.JTextField();
         txtCliente = new javax.swing.JTextField();
@@ -40,12 +44,22 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         btnEncolar.setText("REGISTRAR");
+        btnEncolar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEncolarActionPerformed(evt);
+            }
+        });
 
         btnDesencolar.setText("ATENDER");
 
         btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
-        tbLlamadasTelefonicas.setModel(new javax.swing.table.DefaultTableModel(
+        tblLlamadasTelefonicas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -56,7 +70,7 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tbLlamadasTelefonicas);
+        jScrollPane1.setViewportView(tblLlamadasTelefonicas);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "LLAMADAS TELEFONICAS:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 1, 16))); // NOI18N
@@ -78,7 +92,7 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
                 .addComponent(txtCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(7, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,9 +116,7 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addGap(55, 55, 55)
@@ -140,9 +152,37 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnEncolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEncolarActionPerformed
+        if(txtNumero.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Ingrese un numero telefonico","ADVERTENCIA",2);
+            return;
+        }
+        if(txtCliente.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Ingrese nombre de Cliente","ADVERTENCIA",2);
+            return;
+        }
+        if(txtDuracion.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Ingrese duracion de la Llamada","ADVERTENCIA",2);
+        }
+        int numero = Integer.parseInt(txtNumero.getText().trim());
+        String cliente = txtCliente.getText().trim();
+        double duracion = Double.parseDouble(txtDuracion.getText().trim());
+        LlamadasTelefonicas llamada = new LlamadasTelefonicas(numero, cliente, duracion);
+        cola.encolarLlamada(llamada);
+        cola.mostrarTabla(modelo);
+        limpiar();
+    }//GEN-LAST:event_btnEncolarActionPerformed
+
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    public void limpiar(){
+        txtNumero.setText("");
+        txtCliente.setText("");
+        txtDuracion.setText("");
+        txtNumero.requestFocus();
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -151,7 +191,7 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbLlamadasTelefonicas;
+    private javax.swing.JTable tblLlamadasTelefonicas;
     private javax.swing.JTextField txtCliente;
     private javax.swing.JTextField txtDuracion;
     private javax.swing.JTextField txtLlamadasEspera;
