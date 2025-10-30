@@ -19,6 +19,7 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
     public FrmEjercicio04() {
         initComponents();
         tblLlamadasTelefonicas.setModel(modelo);
+        txtLlamadasEspera.setText(String.valueOf(llamadasEspera));
     }
 
     /**
@@ -40,8 +41,10 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
         txtCliente = new javax.swing.JTextField();
         txtDuracion = new javax.swing.JTextField();
         txtLlamadasEspera = new javax.swing.JTextField();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Llamadas Telefonicas");
 
         btnEncolar.setText("REGISTRAR");
         btnEncolar.addActionListener(new java.awt.event.ActionListener() {
@@ -51,6 +54,11 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
         });
 
         btnDesencolar.setText("ATENDER");
+        btnDesencolar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesencolarActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("SALIR");
         btnSalir.addActionListener(new java.awt.event.ActionListener() {
@@ -106,30 +114,39 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
         );
 
         txtLlamadasEspera.setBorder(javax.swing.BorderFactory.createTitledBorder("N° LLAMADAS EN ESPERA:"));
+        txtLlamadasEspera.setDisabledTextColor(new java.awt.Color(0, 0, 0));
+        txtLlamadasEspera.setEnabled(false);
+
+        btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(btnEncolar)
-                        .addGap(54, 54, 54)
+                        .addGap(26, 26, 26)
                         .addComponent(btnDesencolar)
-                        .addGap(43, 43, 43)
-                        .addComponent(btnSalir)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnLimpiar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalir))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(28, 28, 28))
             .addGroup(layout.createSequentialGroup()
                 .addGap(142, 142, 142)
-                .addComponent(txtLlamadasEspera, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtLlamadasEspera, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -141,7 +158,8 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEncolar)
                     .addComponent(btnDesencolar)
-                    .addComponent(btnSalir))
+                    .addComponent(btnSalir)
+                    .addComponent(btnLimpiar))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -169,6 +187,8 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
         double duracion = Double.parseDouble(txtDuracion.getText().trim());
         LlamadasTelefonicas llamada = new LlamadasTelefonicas(numero, cliente, duracion);
         cola.encolarLlamada(llamada);
+        llamadasEspera++;
+        txtLlamadasEspera.setText(String.valueOf(llamadasEspera));
         cola.mostrarTabla(modelo);
         limpiar();
     }//GEN-LAST:event_btnEncolarActionPerformed
@@ -176,6 +196,26 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
     private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
         System.exit(0);
     }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnDesencolarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesencolarActionPerformed
+        if(cola.esVacio())
+            JOptionPane.showMessageDialog(null, "No hay llamadas telefonicas en espera","INFORMACION",1);
+        else{
+            LlamadasTelefonicas llamada = cola.desencolarLlamada();
+            JOptionPane.showMessageDialog(null,
+                    "Se elimino la llamada:  "+
+                    "\nNumero: "+llamada.getNumeroTelefonico()+
+                    "\nCliente: "+llamada.getCliente()+
+                    "\nDuracion: "+ llamada.getDuracionLlamada(),"INFORMACION",1);
+            llamadasEspera--;
+            txtLlamadasEspera.setText(String.valueOf(llamadasEspera));
+            cola.mostrarTabla(modelo);
+        }
+    }//GEN-LAST:event_btnDesencolarActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
 
     public void limpiar(){
         txtNumero.setText("");
@@ -188,6 +228,7 @@ public class FrmEjercicio04 extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDesencolar;
     private javax.swing.JButton btnEncolar;
+    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnSalir;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;

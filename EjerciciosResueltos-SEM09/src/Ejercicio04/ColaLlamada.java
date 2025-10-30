@@ -13,13 +13,13 @@ public class ColaLlamada {
     public void mostrarTabla(DefaultTableModel modelo) {
         int n = cola.contar();
         String titulos[] = {"N° TELEFONICO", "CLIENTE","DURACION LLAMADA"};
-        Object datos[][] = new Object[n][2];
+        Object datos[][] = new Object[n][3];
         Nodo<LlamadasTelefonicas> nodo = cola.cimaNodo();
         for (int i = 0; i < n; i++) {
             LlamadasTelefonicas llamadas = nodo.getInfo();
             datos[i][0] = llamadas.getNumeroTelefonico();
             datos[i][1] = llamadas.getCliente();
-            datos[i][1] = llamadas.getDuracionLlamada();
+            datos[i][2] = llamadas.getDuracionLlamada();
             
             nodo = nodo.getSgte();
         }
