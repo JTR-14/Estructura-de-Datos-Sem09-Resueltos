@@ -4,17 +4,21 @@
  */
 package Ejercicio03;
 
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author USER
  */
 public class FrmEjercicio03 extends javax.swing.JFrame {
 
-    /**
-     * Creates new form FrmEjercicio03
-     */
+    ColaCircularTurnos cola = new ColaCircularTurnos();
+    DefaultTableModel modelo = new DefaultTableModel();
+    
     public FrmEjercicio03() {
         initComponents();
+        tblColaBanco.setModel(modelo);
     }
 
     /**
@@ -26,24 +30,37 @@ public class FrmEjercicio03 extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnEncolar = new javax.swing.JButton();
-        btnDesencolar = new javax.swing.JButton();
+        btnRegistrar = new javax.swing.JButton();
+        btnAtender = new javax.swing.JButton();
         btnSalir = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tbColaBanco = new javax.swing.JTable();
-        jPanel1 = new javax.swing.JPanel();
+        tblColaBanco = new javax.swing.JTable();
         txtNombre = new javax.swing.JTextField();
-        txtNombre1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnEncolar.setText("ENCOLAR");
+        btnRegistrar.setText("REGISTRAR");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
 
-        btnDesencolar.setText("DESENCOLAR");
+        btnAtender.setText("ATENDER");
+        btnAtender.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtenderActionPerformed(evt);
+            }
+        });
 
         btnSalir.setText("SALIR");
+        btnSalir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSalirActionPerformed(evt);
+            }
+        });
 
-        tbColaBanco.setModel(new javax.swing.table.DefaultTableModel(
+        tblColaBanco.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -54,90 +71,90 @@ public class FrmEjercicio03 extends javax.swing.JFrame {
 
             }
         ));
-        jScrollPane1.setViewportView(tbColaBanco);
+        jScrollPane1.setViewportView(tblColaBanco);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "IMPRESION:", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Black", 1, 16))); // NOI18N
-
-        txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE ARCHIVO:"));
-
-        txtNombre1.setBorder(javax.swing.BorderFactory.createTitledBorder("N° DE PAGINAS:"));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
-                .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNombre1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(23, Short.MAX_VALUE))
-        );
+        txtNombre.setBorder(javax.swing.BorderFactory.createTitledBorder("NOMBRE DE CLIENTE:"));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(55, 55, 55)
-                        .addComponent(btnEncolar)
-                        .addGap(42, 42, 42)
-                        .addComponent(btnDesencolar)
-                        .addGap(42, 42, 42)
-                        .addComponent(btnSalir)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(28, 28, 28))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 263, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(36, 36, 36))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnRegistrar)
+                        .addGap(23, 23, 23)
+                        .addComponent(btnAtender)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSalir)))
+                .addContainerGap(22, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(24, 24, 24)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(34, 34, 34)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEncolar)
-                    .addComponent(btnDesencolar)
+                    .addComponent(btnRegistrar)
+                    .addComponent(btnAtender)
                     .addComponent(btnSalir))
-                .addGap(28, 28, 28)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
+    private void btnSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalirActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_btnSalirActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        if(txtNombre.getText().trim().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Ingrese Nombre de Cliente","ADVERTENCIA",2);
+            return;
+        }
+        if(cola.estaLlena()){
+            JOptionPane.showMessageDialog(null, "La cola de Clientes esta llena","ADVERTENCIA",2);
+            txtNombre.setText("");
+        }
+        else{
+            String nombre = txtNombre.getText().trim();
+            cola.agregarTurno(nombre);
+            cola.mostrarTabla(modelo);
+            txtNombre.setText("");
+            txtNombre.requestFocus();
+        }
+        
+    }//GEN-LAST:event_btnRegistrarActionPerformed
+
+    private void btnAtenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtenderActionPerformed
+        if(cola.estaVacia())
+            JOptionPane.showMessageDialog(null, "La lista de turnos esta vacia","ADVERTENCIA",2);
+        else{
+            Turno eliminado = cola.atenderTurno();
+            JOptionPane.showMessageDialog(null,"Se atendio al cliente: \nCliente: "+eliminado.getNombreCliente()+"\nTurno: "+eliminado.getNumeroTurno(),"INFORMACION",1);
+            cola.mostrarTabla(modelo);
+        }
+    }//GEN-LAST:event_btnAtenderActionPerformed
+
+   
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnDesencolar;
-    private javax.swing.JButton btnEncolar;
+    private javax.swing.JButton btnAtender;
+    private javax.swing.JButton btnRegistrar;
     private javax.swing.JButton btnSalir;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tbColaBanco;
+    private javax.swing.JTable tblColaBanco;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtNombre1;
     // End of variables declaration//GEN-END:variables
 }
